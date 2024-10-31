@@ -12,26 +12,23 @@ TOTAL_FRAMES=$(ls -1 $FRAMES_DIR | grep 'frame_.*\.png' | wc -l)
 query_frame() {
     FRAME_NUMBER=$1
     DOMAIN="frame_$FRAME_NUMBER$DOMAIN_SUFFIX"
-    DIG_OUTPUT=$(dig @$SERVER -p $PORT $DOMAIN)
 
     # Process the dig output to extract the TXT records
     # Remove the leading and trailing quotes and backslashes
-    ASCII_ART=$(echo "$DIG_OUTPUT" | sed -e 's/^.*TXT[[:space:]]*//' -e 's/"//g' -e 's/\\;$/;/g')
 
     # Replace semicolons with newlines (if necessary)
     # ASCII_ART=$(echo "$ASCII_ART" | tr ';' '\n')
 
     # Clear the screen
     clear
+    dig @$SERVER -p $PORT $DOMAIN
+    sleep 0.085
 
-    # Display the ASCII art
-    echo -e "$ASCII_ART"
 }
 
 # Main loop to iterate through frames
 FRAME_NUMBER=0
 while true; do
-    time query_frame $FRAME_NUMBER
+    query_frame $FRAME_NUMBER
     FRAME_NUMBER=$(( (FRAME_NUMBER + 1) % TOTAL_FRAMES ))
-    sleep 0.08
 done
