@@ -1,8 +1,8 @@
 #!/bin/bash
 
-SERVER="localhost"
+SERVER="127.0.0.1"
 PORT="9353"
-DOMAIN_SUFFIX=".example.com"
+DOMAIN_SUFFIX=".dnsroleplay.club"
 FRAMES_DIR="frames"
 
 # Get the total number of frames
@@ -31,6 +31,7 @@ query_frame() {
 # Main loop to iterate through frames
 FRAME_NUMBER=0
 while true; do
-    query_frame $FRAME_NUMBER
+    time query_frame $FRAME_NUMBER
     FRAME_NUMBER=$(( (FRAME_NUMBER + 1) % TOTAL_FRAMES ))
+    sleep 0.08
 done
