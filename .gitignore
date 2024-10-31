@@ -163,3 +163,5 @@ cython_debug/
 
 media/
 frames/
+
+.DS_STORE
